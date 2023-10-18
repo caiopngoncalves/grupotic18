@@ -7,9 +7,9 @@ using namespace std;
 
 class Contato
 {
-    /* static int contador;
+    /* static int contador; */
 
-    int cod; */
+    int cod;
     string nome;
     string telefone;
     string email;
@@ -61,7 +61,7 @@ public:
         return email;
     }
 
-    /*  void setCod(int _cod)
+      void setCod(int _cod)
      {
          cod = _cod;
      }
@@ -69,7 +69,7 @@ public:
      int getCod()
      {
          return cod;
-     } */
+     }
 };
 
 class Gerenciador
@@ -84,13 +84,13 @@ public:
 
     void salvarContato()
     {
-        ofstream contatos_out("contatos.dt");
+        ofstream contatos_out("contatos.txt");
         for (Contato x : contatos)
         {
-            /*             if (x.getCod())
+                         if (x.getCod())
                         {
                             contatos_out << x.getCod() << endl;
-                        } */
+                        } 
 
             if (x.getNome() != "")
             {
@@ -109,31 +109,46 @@ public:
         }
     }
 
+    bool isNumber(const string& s) {
+        for (char c : s) {
+            if (!isdigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
     void carregarContatos()
     {
         ifstream contatos_in("contatos.txt");
         while (!contatos_in.eof())
         {
             Contato contatoAuxiliar;
-            for (int i = 0; i <= 2; i++)
+            for (int i = 0; i <= 3; i++)
             {
                 std::string linha;
                 std::getline(contatos_in, linha);
-                /*if (i == 0)
-                {
-                    int x = stoi(linha);
-                    contatoAuxiliar.setCod(x);
-                }
-                else*/
                 if (i == 0)
+                {
+                    if (isNumber (linha)){
+                        cout << linha << endl;
+                   //  int x = stoi(linha);
+                    contatoAuxiliar.setCod(0);
+                     }
+                     else{
+                        contatoAuxiliar.setCod(0);
+                     }
+                }
+                else
+                if (i == 1)
                 {
                     contatoAuxiliar.setNome(linha);
                 }
-                else if (i == 1)
+                else if (i == 2)
                 {
                     contatoAuxiliar.setTelefone(linha);
                 }
-                else if (i == 2)
+                else if (i == 3)
                 {
                     contatoAuxiliar.setEmail(linha);
                 }
@@ -148,7 +163,7 @@ public:
         {
             if (x.getNome() != "")
             {
-                // cout << "\nContato numero " << x.getCod() << endl;
+                cout << "\nContato numero " << x.getCod() << endl;
                 cout << "Nome: " << x.getNome() << endl;
                 cout << "Telefone: " << x.getTelefone() << endl;
                 cout << "E-mail: " << x.getEmail() << endl;
