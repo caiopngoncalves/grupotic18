@@ -5,107 +5,136 @@
 
 using namespace std;
 
-class Contato {
-    static int contador;
+class Contato
+{
+    /* static int contador;
 
-    int cod;
+    int cod; */
     string nome;
     string telefone;
     string email;
 
 public:
-
-    static int getContador(){
+    /* static int getContador()
+    {
         return contador;
     }
 
-    static void incContador () {
+    static void incContador()
+    {
         contador++;
-    }
+    } */
 
-    Contato () {
-        this->cod = Contato::getContador();
-        Contato::incContador();
-    }
+    /*  Contato()
+     {
+         this->cod = Contato::getContador();
+         Contato::incContador();
+     } */
 
-    void setNome(string _nome) {
+    void setNome(string _nome)
+    {
         nome = _nome;
     }
 
-    string getNome() {
+    string getNome()
+    {
         return nome;
     }
 
-    void setTelefone(string _telefone) {
+    void setTelefone(string _telefone)
+    {
         telefone = _telefone;
     }
 
-    string getTelefone() {
+    string getTelefone()
+    {
         return telefone;
     }
 
-    void setEmail(string _email) {
+    void setEmail(string _email)
+    {
         email = _email;
     }
 
-    string getEmail() {
+    string getEmail()
+    {
         return email;
     }
 
-    void setCod(int _cod) {
-        cod = _cod;
-    }
+    /*  void setCod(int _cod)
+     {
+         cod = _cod;
+     }
 
-    int getCod() {
-        return cod;
-    }
+     int getCod()
+     {
+         return cod;
+     } */
 };
 
-class Gerenciador {
+class Gerenciador
+{
     vector<Contato> contatos;
 
 public:
-    void salvarNoVector(Contato c) {
+    void salvarNoVector(Contato c)
+    {
         contatos.push_back(c);
     }
 
-    void salvarContato() {
+    void salvarContato()
+    {
         ofstream contatos_out("contatos.dt");
-        for (Contato x : contatos) {
-            if (x.getCod()) {  
-                contatos_out << x.getCod() << endl;
-            }
+        for (Contato x : contatos)
+        {
+            /*             if (x.getCod())
+                        {
+                            contatos_out << x.getCod() << endl;
+                        } */
 
-            if (x.getNome() != "") {  
+            if (x.getNome() != "")
+            {
                 contatos_out << x.getNome() << endl;
             }
 
-            if (x.getTelefone() != "") {  
+            if (x.getTelefone() != "")
+            {
                 contatos_out << x.getTelefone() << endl;
             }
 
-            if (x.getEmail() != "") { 
+            if (x.getEmail() != "")
+            {
                 contatos_out << x.getEmail() << endl;
             }
         }
     }
 
-    void carregarContatos() {
-        ifstream contatos_in("contatos.dt");
-        while (!contatos_in.eof()) {
+    void carregarContatos()
+    {
+        ifstream contatos_in("contatos.txt");
+        while (!contatos_in.eof())
+        {
             Contato contatoAuxiliar;
-            for (int i = 0; i <= 3; i++) {
+            for (int i = 0; i <= 2; i++)
+            {
                 std::string linha;
                 std::getline(contatos_in, linha);
-                if (i == 0) {
+                /*if (i == 0)
+                {
                     int x = stoi(linha);
                     contatoAuxiliar.setCod(x);
                 }
-                else if (i == 1) {
+                else*/
+                if (i == 0)
+                {
                     contatoAuxiliar.setNome(linha);
-                } else if (i == 2) {  
+                }
+                else if (i == 1)
+                {
                     contatoAuxiliar.setTelefone(linha);
-                } else if (i == 3) {  
+                }
+                else if (i == 2)
+                {
                     contatoAuxiliar.setEmail(linha);
                 }
             }
@@ -113,30 +142,38 @@ public:
         }
     }
 
-    void listagem () {
-        for (Contato x : contatos) {
-             if (x.getNome() != "") {
+    void listagem()
+    {
+        for (Contato x : contatos)
+        {
+            if (x.getNome() != "")
+            {
                 // cout << "\nContato numero " << x.getCod() << endl;
-                cout << "Nome: " << x.getNome () << endl;
-                cout << "Telefone: " << x.getTelefone () << endl;
-                cout << "E-mail: " << x.getEmail () << endl;
-             }
+                cout << "Nome: " << x.getNome() << endl;
+                cout << "Telefone: " << x.getTelefone() << endl;
+                cout << "E-mail: " << x.getEmail() << endl;
+            }
         }
     }
 };
 
-int main() {
+/* int Contato::contador = 0; */
+
+int main()
+{
     string contador = "s";
     int opcao;
     Gerenciador gerenciador;
     gerenciador.carregarContatos();
 
-    do {
+    do
+    {
         cout << "1. Incluir" << endl;
         cout << "2. Listar" << endl;
         cin >> opcao;
 
-        if (opcao == 1) {
+        if (opcao == 1)
+        {
             Contato contato;
             cout << "Digite o nome:" << endl;
             string nome;
@@ -152,12 +189,13 @@ int main() {
             string email;
             cin >> email;
             contato.setEmail(email);
-           gerenciador.salvarNoVector(contato);
+            gerenciador.salvarNoVector(contato);
         }
 
-        if (opcao == 2) {
+        if (opcao == 2)
+        {
 
-            gerenciador.listagem ();
+            gerenciador.listagem();
         }
 
         cin.ignore(); // Limpar a quebra de linha pendente no buffer
